@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.HomeDao">
+    <sql id="homeField">
+            id,
+            name,
+            age,
+            bir,
+            password,
+            image,
+            status,
+            phone
+    </sql>
+    <select id="findAllHome" parameterType="Integer" resultType="Home">
+        select <include refid="homeField"/>
+        from home limit #{start},#{rows}
+    </select>
+    <select id="findHomeTotal" resultType="Long">
+        select count(id) from home
+    </select>
+
+    <update id="updateHome" parameterType="Home">
+        update home set status=#{status} where id=#{id}
+    </update>
+    <select id="queryOne" resultType="Home" parameterType="Integer">
+        select status from home where id =#{id}
+    </select>
+</mapper>

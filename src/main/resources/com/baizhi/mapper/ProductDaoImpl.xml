@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ProductDao">
+    <select id="findAllProduct" resultType="Product" parameterType="Integer">
+        select id,
+               name,
+               course_img         as courseImg,
+               course_type        as courseType,
+               brief,
+               level,
+               pub_date           as pubDate,
+               period,
+               status,
+               students,
+               lessons,
+               pub_lessons        as pubLessons,
+               price,
+               course_category_id as courseCategoryId,
+               teacher_id         as teacherId
+        from bz_course limit #{start},#{rows}
+    </select>
+    <select id="findTotalRow" resultType="Long">
+        select count(id) from bz_course
+    </select>
+    <delete id="deleteProduct" parameterType="Integer">
+        delete from bz_course where id = #{id}
+    </delete>
+    <update id="updateProduct" parameterType="Product">
+        update bz_course set name=#{name},course_img=#{courseImg},
+            course_type=#{courseType},
+            brief=#{brief},
+            level=#{level},
+            pub_date=#{pubDate},
+            period=#{period},
+            status=#{status},
+            students=#{students},
+            lessons=#{lessons},
+            pub_lessons=#{pubLessons},
+            price=#{price},
+            course_category_id=#{courseCategoryId},
+            teacher_id=#{teacherId}
+            where id=#{id}
+    </update>
+    <insert id="insertProduct">
+    insert into bz_course (name,course_img,course_type,brief,level,pub_date,period,status,students,lessons,pub_lessons,price,course_category_id,teacher_id)
+    values (#{name},#{courseImg},#{courseType},#{brief},#{level},now(),#{period},#{status},#{students},#{lessons},#{pubLessons},#{price},#{courseCategoryId},#{teacherId})
+    </insert>
+    <select id="queryOne" resultType="Product" parameterType="Integer">
+        select * from bz_course where id =#{id}
+    </select>
+</mapper>
